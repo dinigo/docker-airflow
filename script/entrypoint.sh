@@ -111,8 +111,9 @@ if [ "$AIRFLOW__CORE__EXECUTOR" = "CeleryExecutor" ]; then
     else
       REDIS_ENDPOINT=$(echo -n "$AIRFLOW__CELERY__BROKER_URL" | cut -d '/' -f3 | sed -e 's,.*@,,')
     fi
-    REDIS_HOST=$(echo -n "$POSTGRES_ENDPOINT" | cut -d ':' -f1)
-    REDIS_PORT=$(echo -n "$POSTGRES_ENDPOINT" | cut -d ':' -f2)
+    REDIS_HOST=$(echo -n "$REDIS_ENDPOINT" | cut -d ':' -f1)
+    REDIS_PORT=$(echo -n "$REDIS_ENDPOINT" | cut -d ':' -f2)
+    REDIS_ENDPOINT=$(echo -n "$AIRFLOW__CELERY__BROKER_URL" | cut -d '/' -f3 | sed -e 's,.*@,,')
   fi
 
   wait_for_port "Redis" "$REDIS_HOST" "$REDIS_PORT"
