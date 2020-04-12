@@ -26,11 +26,6 @@ if [[ -z "$AIRFLOW__CORE__FERNET_KEY" && -z "$AIRFLOW__CORE__FERNET_KEY_CMD" ]];
   export AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY:=$(python -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print(FERNET_KEY)")}
 fi
 
-# Install custom python package if requirements.txt is present
-if [ -e "/requirements.txt" ]; then
-    $(command -v pip) install --user -r /requirements.txt
-fi
-
 wait_for_port() {
   local name="$1" host="$2" port="$3"
   local j=0
