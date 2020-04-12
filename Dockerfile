@@ -1,11 +1,5 @@
-# VERSION 1.10.10
-# AUTHOR: Matthieu "Puckel_" Roisil
-# DESCRIPTION: Basic Airflow container
-# BUILD: docker build --rm -t puckel/docker-airflow .
-# SOURCE: https://github.com/puckel/docker-airflow
-
 FROM python:3.7-slim-buster
-LABEL maintainer="Puckel_"
+LABEL maintainer="dinigo"
 
 # Never prompt the user for choices on installation/configuration of packages
 ENV DEBIAN_FRONTEND noninteractive
@@ -19,11 +13,12 @@ ARG PYTHON_DEPS=""
 ENV AIRFLOW_HOME=${AIRFLOW_USER_HOME}
 
 # Define en_US.
-ENV LANGUAGE en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
-ENV LC_CTYPE en_US.UTF-8
-ENV LC_MESSAGES en_US.UTF-8
+ARG LANG en_US.UTF-8
+ENV LANGUAGE ${LANG}
+ENV LANG ${LANG}
+ENV LC_ALL ${LANG}
+ENV LC_CTYPE ${LANG}
+ENV LC_MESSAGES ${LANG}
 
 # Disable noisy "Handling signal" log messages:
 # ENV GUNICORN_CMD_ARGS --log-level WARNING
